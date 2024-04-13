@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATA SCIENTIST - PayPlot</title>
+    <!-- Add Tableau JavaScript API library -->
+    <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+    <style>
+        /* Optional: Style the container div to fit the dashboard */
+        #tableauViz {
+            width: 100%; /* Adjust width as needed */
+            height: 100vh; /* Adjust height as needed */
+        }
+    </style>
+</head>
+<body>
+    <!-- Container for Tableau dashboard -->
+    <div id="tableauViz"></div>
+
+    <script type="text/javascript">
+        // Function to embed Tableau dashboard
+        function initViz() {
+            var containerDiv = document.getElementById("tableauViz");
+            var url = "https://public.tableau.com/views/DataScientists-PayPlot/Dashboard1?:language=en-GB&publish=yes&:sid=&:display_count=n&:origin=viz_share_link"; // Replace with your Tableau dashboard URL
+            var options = {
+                hideTabs: true,
+                hideToolbar: true,
+                onFirstInteractive: function () {
+                    var workbook = viz.getWorkbook();
+                    var activeSheet = workbook.getActiveSheet();
+                    // Check if the active sheet contains a map and resize it to fit the container
+                    if (activeSheet.getSheetType() === 'worksheet' && activeSheet.getSheetTypeOptions().map) {
+                        activeSheet.changeSizeAsync({ behavior: tableau.SheetSizeBehaviors.AUTOMATIC });
+                    }
+                }
+            };
+            var viz = new tableau.Viz(containerDiv, url, options);
+        }
+
+        // Call the function to embed the dashboard when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            initViz();
+        });
+    </script>
+</body>
+</html>
